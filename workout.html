@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7-Day Workout Plan for Elderly</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #ffffff; /* Minimal white background */
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    
+    header {
+        background: #15bdd7; /* Light gray for minimal look */
+        color: rgb(10, 5, 59);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+    
+    #workout-plan {
+        margin-top: 30px;
+        padding: 20px;
+        background: #e0f7fa; /* Light cyan background for workout plan */
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    button {
+        background-color: #003366; /* Dark blue for minimal look */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 1.2em;
+        cursor: pointer;
+        margin: 5px 0;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #002244; /* Darker blue on hover */
+        transform: translateY(-3px); /* Lift up effect */
+        transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    }
+    
+    .exercises {
+        margin-top: 10px;
+        padding: 10px;
+        border: none; /* Removed border for minimal look */
+        border-radius: 5px;
+        display: none; /* Initially hidden */
+    }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>7-Day Workout Plan for Elderly</h1>
+    </header>
+    <main>
+        <section id="workout-plan">
+            <h2>Workout Plan</h2>
+            <button onclick="showExercises('day1')">Day 1: Light Stretching</button>
+            <div class="exercises" id="day1" style="display:none;">
+                <p>Start your day with some light stretching exercises to improve flexibility.</p>
+                <ul>
+                    <li>Neck Stretch</li>
+                    <li>Shoulder Stretch</li>
+                    <li>Hamstring Stretch</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day2')">Day 2: Walking</button>
+            <div class="exercises" id="day2" style="display:none;">
+                <p>Take a 30-minute walk in your neighborhood or a nearby park.</p>
+                <ul>
+                    <li>Warm-up Walk</li>
+                    <li>Brisk Walk</li>
+                    <li>Cool Down Walk</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day3')">Day 3: Chair Exercises</button>
+            <div class="exercises" id="day3" style="display:none;">
+                <p>Perform chair exercises to strengthen your muscles.</p>
+                <ul>
+                    <li>Seated Leg Lifts</li>
+                    <li>Chair Push-ups</li>
+                    <li>Seated Torso Twist</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day4')">Day 4: Balance Training</button>
+            <div class="exercises" id="day4" style="display:none;">
+                <p>Practice balance exercises to improve stability.</p>
+                <ul>
+                    <li>Single Leg Stand</li>
+                    <li>Heel-to-Toe Walk</li>
+                    <li>Side Leg Raises</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day5')">Day 5: Yoga</button>
+            <div class="exercises" id="day5" style="display:none;">
+                <p>Engage in gentle yoga sessions to enhance relaxation.</p>
+                <ul>
+                    <li>Cat-Cow Stretch</li>
+                    <li>Child's Pose</li>
+                    <li>Seated Forward Bend</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day6')">Day 6: Strength Training</button>
+            <div class="exercises" id="day6" style="display:none;">
+                <p>Incorporate light weights for strength training.</p>
+                <ul>
+                    <li>Bicep Curls</li>
+                    <li>Tricep Extensions</li>
+                    <li>Seated Shoulder Press</li>
+                </ul>
+            </div>
+            <button onclick="showExercises('day7')">Day 7: Rest Day</button>
+            <div class="exercises" id="day7" style="display:none;">
+                <p>Take a rest day to recover and relax.</p>
+                <ul>
+                    <li>Gentle Stretching</li>
+                    <li>Deep Breathing</li>
+                    <li>Hydration</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <script>
+        function showExercises(day) {
+            console.log("Button clicked for: " + day); // Debugging log
+            var exercises = document.getElementById(day);
+            if (exercises.style.display === "none") {
+                exercises.style.display = "block";
+            } else {
+                exercises.style.display = "none";
+            }
+        }
+
+        // Automatically show exercises for the current day
+        function showCurrentDayExercises() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+            const dayToShow = dayOfWeek === 0 ? 7 : dayOfWeek; // Adjust for Sunday
+            showExercises('day' + dayToShow);
+        }
+
+        // Call the function to show today's exercises on page load
+        window.onload = showCurrentDayExercises;
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElderEase - Emergency Contact</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff0066, #660099);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .container input {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            text-align: center;
+            outline: none;
+        }
+
+        .container input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .save-button, .reset-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .save-button { background: #28a745; }
+        .save-button:hover { background: #218838; }
+
+        .reset-button { background: #dc3545; display: none; }
+        .reset-button:hover { background: #c82333; }
+
+        .error {
+            color: yellow;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .saved-message {
+            color: white;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .heading {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .emergency-button {
+            display: none;
+            background: linear-gradient(135deg, #ff0033, #cc0000);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .emergency-button:hover {
+            background: linear-gradient(135deg, #cc0000, #990000);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .emergency-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="contactContainer">
+        <h1 style="color:white;">ElderEase</h1>
+        <h2 style="color: white;">Enter Emergency Contact</h2>
+        <input type="text" id="contactInput" placeholder="Enter 10-digit number" maxlength="10">
+        <button class="save-button" id="saveButton">Save Number</button>
+        <p id="errorMessage" class="error">Please include a 10-digit phone number</p>
+    </div>
+
+    <p id="savedMessage" class="saved-message">The number is saved as an emergency contact.</p>
+
+    <h2 id="elderEaseHeading" class="heading">ElderEase</h2>
+    <button class="emergency-button" id="emergencyButton">Emergency Call</button>
+    <button class="reset-button" id="resetButton">Reset Contact</button>
+
+    <script>
+        const input = document.getElementById('contactInput');
+        const saveButton = document.getElementById('saveButton');
+        const emergencyBtn = document.getElementById('emergencyButton');
+        const resetButton = document.getElementById('resetButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const contactContainer = document.getElementById('contactContainer');
+        const savedMessage = document.getElementById('savedMessage');
+        const elderEaseHeading = document.getElementById('elderEaseHeading');
+
+        function saveNumber() {
+            const isValid = /^\d{10}$/.test(input.value);
+            if (!isValid) {
+                errorMessage.style.display = 'block';
+                input.classList.add('invalid');
+            } else {
+                errorMessage.style.display = 'none';
+                input.classList.remove('invalid');
+
+                // Store number in localStorage
+                localStorage.setItem('emergencyContact', input.value);
+
+                // Hide input and save button, show message, heading, and emergency button
+                contactContainer.style.display = 'none';
+                savedMessage.style.display = 'block';
+                elderEaseHeading.style.display = 'block';
+                emergencyBtn.style.display = 'block';
+                resetButton.style.display = 'block';
+            }
+        }
+
+        function resetNumber() {
+            localStorage.removeItem('emergencyContact');
+            location.reload(); // Reload page to allow new number entry
+        }
+
+        function checkStoredNumber() {
+            const savedNumber = localStorage.getItem('emergencyContact');
+            if (savedNumber) {
+                contactContainer.style.display = 'none';
+                savedMessage.style.display = 'block';
+                elderEaseHeading.style.display = 'block';
+                emergencyBtn.style.display = 'block';
+                resetButton.style.display = 'block';
+            }
+        }
+
+        // Click Save Button
+        saveButton.addEventListener('click', saveNumber);
+
+        // Press Enter Key to Save
+        input.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                saveNumber();
+            }
+        });
+
+        // Emergency Button Action
+        emergencyBtn.addEventListener('click', function () {
+            if (confirm("Are you sure you want to call the emergency contact?")) {
+                alert("Calling Emergency Contact...");
+            }
+        });
+
+        // Reset stored number
+        resetButton.addEventListener('click', resetNumber);
+
+        // Check if number exists in storage on page load
+        checkStoredNumber();
+    </script>
+
+</body>
+</html>

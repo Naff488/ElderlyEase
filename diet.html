@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly Diet Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #9fc886, #9fc886);
+            text-align: center;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        input, button {
+            width: 90%;
+            padding: 15px;
+            margin: 10px auto;
+            border-radius: 5px;
+            border: none;
+            font-size: 18px;
+            display: block;
+        }
+        .diet-plan, .recipe {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        button {
+            background-color: #4e7635;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4e7635;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ElderEase</h1>
+        <h2>Diet Planner</h2>
+        <input type="number" id="sugarLevel" placeholder="Blood Sugar Level (mg/dL)">
+        <input type="number" id="heartRate" placeholder="Heart Rate (bpm)">
+        <input type="number" id="cholesterol" placeholder="Cholesterol Level (mg/dL)">
+        <button onclick="generatePlan()">Get Diet Plan</button>
+        <div id="dietPlan" class="diet-plan"></div>
+        <div id="recipe" class="recipe"></div>
+    </div>
+
+    <script>
+        function generatePlan() {
+            let sugar = document.getElementById('sugarLevel').value;
+            let heartRate = document.getElementById('heartRate').value;
+            let cholesterol = document.getElementById('cholesterol').value;
+            let dietPlan = document.getElementById('dietPlan');
+            let recipe = document.getElementById('recipe');
+            
+            if (!sugar || !heartRate || !cholesterol) {
+                alert("Please enter all values.");
+                return;
+            }
+            
+            let mealPlan = "";
+            let recipeDetails = "";
+            
+            let meals = {
+                "Breakfast": [
+                    { name: "Scrambled eggs with avocado and whole-grain toast", recipe: "Ingredients: Eggs, avocado, whole-grain bread, olive oil." },
+                    { name: "Oatmeal with nuts and berries", recipe: "Ingredients: Oats, almonds, berries, milk." },
+                    { name: "Greek yogurt with honey and flaxseeds", recipe: "Ingredients: Greek yogurt, honey, flaxseeds." },
+                    { name: "Whole wheat pancakes with almond butter", recipe: "Ingredients: Whole wheat flour, almond butter, eggs, milk." },
+                    { name: "Vegetable omelette with whole grain bread", recipe: "Ingredients: Eggs, bell peppers, spinach, whole grain bread." },
+                    { name: "Smoothie with banana, spinach, and protein powder", recipe: "Ingredients: Banana, spinach, protein powder, almond milk." },
+                    { name: "Cottage cheese with fresh fruit", recipe: "Ingredients: Cottage cheese, berries, honey." }
+                ],
+                "Lunch": [
+                    { name: "Grilled salmon with quinoa and steamed broccoli", recipe: "Ingredients: Salmon, quinoa, olive oil, broccoli." },
+                    { name: "Chicken and vegetable stir-fry with brown rice", recipe: "Ingredients: Chicken, bell peppers, carrots, brown rice." },
+                    { name: "Lentil soup with whole-wheat bread", recipe: "Ingredients: Lentils, carrots, celery, garlic." },
+                    { name: "Quinoa salad with chickpeas and feta cheese", recipe: "Ingredients: Quinoa, chickpeas, feta, lemon dressing." },
+                    { name: "Baked tofu with roasted vegetables", recipe: "Ingredients: Tofu, bell peppers, zucchini, olive oil." },
+                    { name: "Turkey and avocado sandwich on whole grain bread", recipe: "Ingredients: Turkey breast, avocado, whole grain bread." },
+                    { name: "Vegetable and bean chili with cornbread", recipe: "Ingredients: Beans, tomatoes, bell peppers, cornbread." }
+                ],
+                "Dinner": [
+                    { name: "Baked chicken with sweet potatoes and steamed greens", recipe: "Ingredients: Chicken breast, sweet potatoes, spinach." },
+                    { name: "Grilled fish with quinoa and roasted veggies", recipe: "Ingredients: Fish, quinoa, olive oil, veggies." },
+                    { name: "Vegetable soup with whole grain bread", recipe: "Ingredients: Carrots, potatoes, celery, whole grain bread." },
+                    { name: "Stuffed bell peppers with ground turkey and rice", recipe: "Ingredients: Bell peppers, turkey, brown rice." },
+                    { name: "Stir-fried tofu with mixed vegetables", recipe: "Ingredients: Tofu, broccoli, carrots, soy sauce." },
+                    { name: "Zucchini noodles with pesto and grilled shrimp", recipe: "Ingredients: Zucchini, shrimp, pesto sauce." },
+                    { name: "Minestrone soup with whole wheat rolls", recipe: "Ingredients: Beans, tomatoes, pasta, whole wheat rolls." }
+                ]
+            };
+            
+            for (let meal in meals) {
+                let chosenMeal = meals[meal][Math.floor(Math.random() * meals[meal].length)];
+                mealPlan += `<h3>${meal}:</h3>${chosenMeal.name}<br>`;
+                recipeDetails += `<h3>Recipe for ${chosenMeal.name}:</h3><p>${chosenMeal.recipe}</p>`;
+            }
+            
+            dietPlan.innerHTML = `<h3>Your Personalized Diet Plan:</h3>${mealPlan}`;
+            recipe.innerHTML = recipeDetails;
+            dietPlan.style.display = 'block';
+            recipe.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
