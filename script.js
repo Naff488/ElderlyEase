@@ -5,7 +5,7 @@ document.getElementById("user-input").addEventListener("keypress", function(even
     }
 });
 
-const GEMINI_API_KEY = "AIzaSyDMXU34kV_2zsVDaRhgSI4FuveGt5IUbMg"; // Replace with your actual API key
+const GEMINI_API_KEY = "AIzaSyCsDiqYI5WFIAm5BieY3rkoITLRFtU6lJk"; // Replace with your actual API key
 
 async function sendMessage() {
     let inputField = document.getElementById("user-input");
@@ -44,3 +44,4 @@ function appendMessage(text, sender) {
     chatBox.appendChild(messageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
